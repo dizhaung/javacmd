@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 定义一个工程，默认任务为jarFile。 -->
+<project name="myh" default="jarFile" basedir=".">
+    
+    <!-- 定义属性，打成jar包的名称。 -->
+    <property name="jarFileName" value="myh.jar"></property>
+    
+    
+    <!-- 定义路径，编译java文件时用到的jar包。 -->
+    <path id="project.lib">
+        <fileset dir="${basedir}/lib">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+    
+    <!-- 定义任务，清空任务：清空原有的class文件，创建新的build路径。 -->
+    <target name="clean">
+        <delete dir="${basedir}/build" />
+        <mkdir dir="${basedir}/build" />
+    </target>
+    
+    <!-- 定义任务，编译src文件夹中的java文件，编译后的class文件放到创建的文件夹下。 -->
+    <target name="compile" depends="clean">
+        <javac encoding="utf-8"  srcdir="${basedir}/src" destdir="${basedir}/build" includeantruntime="false">
+            <classpath refid="project.lib">
+            </classpath>
+        </javac>
+        
+        <copy todir="${basedir}/build">
+            <fileset dir="${basedir}/conf">
+                <include name="**/**.*" /> 
+                <exclude name="**/*.java"/>   
+            </fileset>
+        </copy>
+    </target>
+    
+    <!-- 定义默认任务，将class文件集合成jar包。 -->
+    <target name="jarFile" depends="compile">
+        <!-- 删除原有jar包。 -->
+        <delete dir="${basedir}/${jarFileName}" />
+        <!-- 建立新jar包。 -->
+        <jar destfile="${basedir}/${jarFileName}" 
+			 basedir = "${basedir}/build"
+			 includes = "**/**.*"
+        	>
+           
+           <manifest>
+        	 <attribute name="Main-Class" value="com.yp.test.HelloWorld"/>
+        	 <attribute name="Class-Path" value="lib/log4j-1.2.17.jar"/>
+      	   </manifest>
+        </jar>
+    </target>
+    
+</project>

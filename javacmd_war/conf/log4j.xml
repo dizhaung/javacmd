@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+	
+<!-- 	<appender name="business"
+	class="org.apache.log4j.RollingFileAppender">
+	<param name="File" value="/home/huge/logs/boss/business/business.log" />
+	<param name="MaxFileSize" value="10MB" />
+	<param name="MaxBackupIndex" value="10" />
+	<layout class="org.apache.log4j.PatternLayout">
+		<param name="ConversionPattern" value="%m%n" />
+	</layout>
+	<filter class="org.apache.log4j.varia.LevelRangeFilter">  
+		<param name="LevelMax" value="SERVICE" />  
+		<param name="LevelMin" value="INFO" />  
+	</filter>  
+</appender> -->
+	
+
+	<appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c{1}] %m%n" />
+		</layout>
+	</appender>
+
+<!--     <logger name="mylog" additivity="false">  
+    <level class="org.apache.log4j.Level" value="DEBUG"/>  
+    <appender-ref ref="business"/>  
+</logger>   -->
+    
+    
+	<root>
+		<level value="info" />
+		<appender-ref ref="stdout" />
+	</root>
+</log4j:configuration>
